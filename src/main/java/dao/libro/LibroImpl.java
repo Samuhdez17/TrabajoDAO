@@ -14,8 +14,10 @@ public class LibroImpl implements LibroDAO {
     @Override
     public void addLibro(Libro libro) throws Exception {
         String sql = "INSERT INTO libro (titulo) VALUES (?)";
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)
+        ) {
             ps.setString(1, libro.getTitulo());
             ps.executeUpdate();
 
@@ -32,9 +34,11 @@ public class LibroImpl implements LibroDAO {
         String sql = "SELECT id, titulo FROM libro";
         List<Libro> lista = new ArrayList<>();
 
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery()
+        ) {
             while (rs.next()) {
                 lista.add(new Libro(rs.getInt("id"), rs.getString("titulo")));
             }
@@ -45,8 +49,10 @@ public class LibroImpl implements LibroDAO {
     @Override
     public Libro getLibroById(int id) throws Exception {
         String sql = "SELECT id, titulo FROM libro WHERE id = ?";
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -59,9 +65,11 @@ public class LibroImpl implements LibroDAO {
 
     @Override
     public void updateLibro(Libro libro) throws Exception {
-        String sql = "UPDATE libro SET titulo=? WHERE id=?";
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "UPDATE libro SET titulo = ? WHERE id = ?";
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
             ps.setString(1, libro.getTitulo());
             ps.setInt(2, libro.getId());
             ps.executeUpdate();
@@ -71,12 +79,14 @@ public class LibroImpl implements LibroDAO {
 
     @Override
     public void deleteLibro(int id) throws Exception {
-        String sql = "DELETE FROM libro WHERE id=?";
-        try (Connection conn = ConexionBD.getConexion();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
+        String sql = "DELETE FROM libro WHERE id = ?";
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
             ps.setInt(1, id);
             ps.executeUpdate();
-            System.out.println("DAO: Libro eliminado (id=" + id + ")");
+            System.out.println("DAO: Libro eliminado (id = " + id + ")");
         }
     }
 }
