@@ -4,14 +4,12 @@ import java.sql.*;
 
 public class ConexionBD {
 	private static final String URL = "jdbc:mysql://localhost:3306/biblioteca";
-	private static String USER = "root";
-	private static String PASSWORD = "a";
+	private final static String USER = "root";
+	private final static String PASSWORD = "a";
 
 	private static Connection conexion;
 
-    public ConexionBD(String usuario, String contra) {
-        USER = usuario;
-        PASSWORD = contra;
+    public ConexionBD() {
         try {
             conectar();
         } catch (SQLException ex) {
