@@ -6,6 +6,9 @@ import model.Libro;
 import java.util.List;
 
 public class BibliotecaService {
+    /*
+    TODO: Implementar todos los metodos de los DAO's para que se usen en Main
+     */
     private LibroDAO libroDAO;
 
     public BibliotecaService(LibroDAO libroDAO) {

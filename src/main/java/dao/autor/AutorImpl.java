@@ -48,7 +48,7 @@ public class AutorImpl implements AutorDAO {
 
     @Override
     public Autor getAutorById(int id) throws Exception {
-        String sql = "SELECT id, titulo FROM autor WHERE id = ?";
+        String sql = "SELECT id, nombre FROM autor WHERE id = ?";
         try (
                 Connection conn = ConexionBD.getConexion();
                 PreparedStatement ps = conn.prepareStatement(sql)
@@ -65,12 +65,12 @@ public class AutorImpl implements AutorDAO {
 
     @Override
     public void updateAutor(Autor autor) throws Exception {
-        String sql = "UPDATE autor SET titulo = ? WHERE id = ?";
+        String sql = "UPDATE autor SET nombre = ? WHERE id = ?";
         try (
                 Connection conn = ConexionBD.getConexion();
                 PreparedStatement ps = conn.prepareStatement(sql)
         ) {
-            ps.setString(1, autor.getTitulo());
+            ps.setString(1, autor.getNombre());
             ps.setInt(2, autor.getId());
             ps.executeUpdate();
             System.out.println("DAO: Autor actualizado -> " + autor);

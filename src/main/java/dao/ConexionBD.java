@@ -7,31 +7,15 @@ public class ConexionBD {
 	private final static String USER = "root";
 	private final static String PASSWORD = "a";
 
-	private static Connection conexion;
-
-    public ConexionBD() {
-        try {
-            conectar();
-        } catch (SQLException ex) {
-            System.err.println("Error al conectar con la base de datos: " + ex);
-        }
-    }
-
     public static Connection getConexion() {
+        Connection conexion;
+        try {
+            conexion = DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (SQLException ex) {
+            System.err.println("Error al conectar con la base de datos: ");
+            throw new RuntimeException(ex);
+        }
+
         return conexion;
     }
-
-    private void conectar() throws SQLException {
-		 conexion = DriverManager.getConnection(URL, USER, PASSWORD);
-	}
-
-	public void desconectar() {
-		try {
-			if (conexion != null){
-				conexion.close();
-			}
-		} catch (Exception error){
-			System.out.println("Error porducido al desconectar la base de datos: " + error);
-		}
-	}
 }
