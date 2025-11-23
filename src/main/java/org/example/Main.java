@@ -69,34 +69,54 @@ public class Main {
         PrestamoDAO prestamoDAO = new PrestamoImpl();
         UsuarioDAO usuarioDAO = new UsuarioImpl();
         BibliotecaService servicio = new BibliotecaService(libroDAO, autorDAO, libroAutorDAO, prestamoDAO, usuarioDAO);
-        int opcion;
-        do {
+        int opcion = -1;
+        while (opcion != 0) {
             System.out.println(MENU_PRINCIPAL);
             opcion = ENTRADA.nextInt();
 
             switch (opcion) {
                 case 1 -> {
                     opcion = -1;
-                    System.out.println(MENU_AUTOR);
+                    while (opcion != 0) {
+                        System.out.println(MENU_AUTOR);
+                        opcion = ENTRADA.nextInt();
+                        switch (opcion) { // TODO: EN CADA CASE INICIALIZA OPCION A -1. EN TODOS LOS SWITCH QUE HAY DEBAJO IGUAL!!
+                        }
+                    }
                 }
 
                 case 2 -> {
                     opcion = -1;
-                    System.out.println(MENU_LIBRO);
+                    while (opcion != 0) {
+                        System.out.println(MENU_LIBRO);
+                        opcion = ENTRADA.nextInt();
+                        switch (opcion) {
+                        }
+                    }
                 }
 
                 case 3 -> {
                     opcion = -1;
-                    System.out.println(MENU_PRESTAMO);
+                    while (opcion != 0) {
+                        System.out.println(MENU_PRESTAMO);
+                        opcion = ENTRADA.nextInt();
+                        switch (opcion) {
+                        }
+                    }
                 }
 
                 case 4 -> {
                     opcion = -1;
-                    System.out.println(MENU_USUARIO);
+                    while (opcion != 0) {
+                        System.out.println(MENU_USUARIO);
+                        opcion = ENTRADA.nextInt();
+                        switch (opcion) {
+                        }
+                    }
                 }
 
                 case 0 -> System.out.println("Saliendo de la base de datos...");
             }
-        }while (opcion != 0);
+        }
     }
 }
