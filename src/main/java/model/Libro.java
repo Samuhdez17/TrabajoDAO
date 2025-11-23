@@ -9,6 +9,12 @@ public class Libro {
         this.titulo = titulo;
         this.isbn = isbn;
     }
+
+    public Libro(String titulo, String isbn) {
+        this.titulo = titulo;
+        this.isbn = isbn;
+    }
+
     public int getId() {
         return id;
     }

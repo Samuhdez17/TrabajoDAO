@@ -7,6 +7,11 @@ public class Usuario {
         this.id = id;
         this.nombre = nombre;
     }
+
+    public Usuario(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

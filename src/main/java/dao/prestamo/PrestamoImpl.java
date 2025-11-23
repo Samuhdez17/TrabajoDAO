@@ -25,12 +25,15 @@ public class PrestamoImpl implements PrestamoDAO {
             ps.setDate(2, Date.valueOf(fechaFin));
             ps.setInt(3, prestamo.getIdLibro());
             ps.setInt(4, prestamo.getIdUsuario());
+            ps.executeUpdate();
+            System.out.println("DAO: Préstamo insertado -> " + prestamo);
         }
     }
 
     @Override
     public List<Prestamo> getAll() throws SQLException {
-        String sql = "SELECT * FROM prestamo";
+        String sql = "SELECT * FROM prestamo " +
+                "ORDER BY id";
         List<Prestamo> listaPrestamos = new ArrayList<>();
 
         try (
