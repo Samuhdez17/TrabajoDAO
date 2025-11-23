@@ -15,6 +15,52 @@ import service.BibliotecaService;
 import java.util.Scanner;
 
 public class Main {
+    private static final String MENU_PRINCIPAL = """
+            ========= MENU PRINCIPAL =========
+            1.  Acceder al menu autor
+            2.  Acceder al menu libro
+            3.  Acceder al menu préstamo
+            4.  Acceder al menu usuario
+            0.  Salir
+            """;
+
+    private static final String MENU_AUTOR = """
+            ========= MENU AUTOR =========
+            1. Registrar autor
+            2. Listar autores
+            3. Actualizar autor
+            4. Borrar autor
+            0. Salir al menu principal
+            """;
+
+    private static final String MENU_LIBRO = """
+            ========= MENU LIBRO =========
+            1. Registrar libro
+            2. Listar libros
+            3. Listar libros por autor
+            4. Actualizar libro
+            5. Borrar libro
+            0. Salir al menu principal
+            """;
+
+    private static final String MENU_PRESTAMO = """
+            ========= MENU PRÉSTAMO =========
+            1. Registrar préstamo
+            2. Listar préstamos
+            3. Listar préstamos atrasados
+            4. Borrar préstamo
+            0. Salir al menu principal
+            """;
+
+    private static final String MENU_USUARIO = """
+            ========= MENU USUARIO =========
+            1. Registrar usuario
+            2. Listar usuarios
+            3. Actualizar usuario
+            4. Borrar usuario
+            0. Salir al menu principal
+            """;
+
     private static final Scanner ENTRADA = new Scanner(System.in);
     public static void main(String[] args) {
         AutorDAO autorDAO = new AutorImpl();
@@ -23,50 +69,33 @@ public class Main {
         PrestamoDAO prestamoDAO = new PrestamoImpl();
         UsuarioDAO usuarioDAO = new UsuarioImpl();
         BibliotecaService servicio = new BibliotecaService(libroDAO, autorDAO, libroAutorDAO, prestamoDAO, usuarioDAO);
-        int opcion = 0;
+        int opcion;
         do {
-            System.out.println("""
-            =====MENÚ DAO=====
-            1.  Agregar Autor
-            2.  Agregar Libro
-            3.  Agregar Préstamo
-            4.  Agregar Usuario
-            5.  Listar Autores
-            6.  Listar Libros
-            7.  Listar Préstamos
-            8.  Listar Usuarios
-            9.  Actualizar Autor
-            10. Actualizar Libro
-            11. Actualizar Préstamo
-            12. Actualizar Usuario
-            13. Borrar Autor
-            14. Borrar Libro
-            15. Borrar Préstamo
-            16. Borrar Usuario
-            0. Salir
-            """);
+            System.out.println(MENU_PRINCIPAL);
+            opcion = ENTRADA.nextInt();
+
             switch (opcion) {
-                case 1 -> {}
-                case 2 -> {}
-                case 3 -> {}
-                case 4 -> {}
-                case 5 -> {}
-                case 6 -> {}
-                case 7 -> {}
-                case 8 -> {}
-                case 9 -> {}
-                case 10 -> {}
-                case 11 -> {}
-                case 12 -> {}
-                case 13 -> {}
-                case 14 -> {}
-                case 15 -> {}
-                case 16 -> {}
-                case 17 -> {}
-                case 18 -> {}
-                case 19 -> {}
-                case 20 -> {}
-                case 0 -> {}
+                case 1 -> {
+                    opcion = -1;
+                    System.out.println(MENU_AUTOR);
+                }
+
+                case 2 -> {
+                    opcion = -1;
+                    System.out.println(MENU_LIBRO);
+                }
+
+                case 3 -> {
+                    opcion = -1;
+                    System.out.println(MENU_PRESTAMO);
+                }
+
+                case 4 -> {
+                    opcion = -1;
+                    System.out.println(MENU_USUARIO);
+                }
+
+                case 0 -> System.out.println("Saliendo de la base de datos...");
             }
         }while (opcion != 0);
     }
