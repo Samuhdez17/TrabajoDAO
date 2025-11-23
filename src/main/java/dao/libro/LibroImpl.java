@@ -31,7 +31,7 @@ public class LibroImpl implements LibroDAO {
 
     @Override
     public List<Libro> getAllLibros() throws Exception {
-        String sql = "SELECT id, titulo FROM libro";
+        String sql = "SELECT id, titulo, isbn FROM libro";
         List<Libro> lista = new ArrayList<>();
 
         try (
@@ -40,7 +40,7 @@ public class LibroImpl implements LibroDAO {
                 ResultSet rs = ps.executeQuery()
         ) {
             while (rs.next()) {
-                lista.add(new Libro(rs.getInt("id"), rs.getString("titulo")));
+                lista.add(new Libro(rs.getInt("id"), rs.getString("titulo"), rs.getString("isbn")));
             }
         }
         return lista;
@@ -56,7 +56,7 @@ public class LibroImpl implements LibroDAO {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
-                    return new Libro(rs.getInt("id"), rs.getString("titulo"));
+                    return new Libro(rs.getInt("id"), rs.getString("titulo"), rs.getString("isbn"));
                 }
             }
         }
