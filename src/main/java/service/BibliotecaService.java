@@ -1,6 +1,10 @@
 package service;
 
+import dao.autor.AutorDAO;
 import dao.libro.LibroDAO;
+import dao.libro_autor.LibroAutorDAO;
+import dao.prestamo.PrestamoDAO;
+import dao.usuario.UsuarioDAO;
 import model.Libro;
 
 import java.util.List;
@@ -10,11 +14,19 @@ public class BibliotecaService {
     TODO: Implementar todos los metodos de los DAO's para que se usen en Main
      */
     private LibroDAO libroDAO;
+    private AutorDAO autorDAO;
+    private LibroAutorDAO libroAutorDAO;
+    private PrestamoDAO prestamoDAO;
+    private UsuarioDAO usuarioDAO;
 
-    public BibliotecaService(LibroDAO libroDAO) {
+    public BibliotecaService(LibroDAO libroDAO, AutorDAO autorDAO, LibroAutorDAO libroAutorDAO, PrestamoDAO prestamoDAO, UsuarioDAO usuarioDAO) {
         this.libroDAO = libroDAO;
-    }
+        this.autorDAO = autorDAO;
+        this.libroAutorDAO = libroAutorDAO;
+        this.prestamoDAO = prestamoDAO;
+        this.usuarioDAO = usuarioDAO;
 
+    }
     public void registrarLibro(String titulo) {
         try {
             Libro libro = new Libro(0, titulo);

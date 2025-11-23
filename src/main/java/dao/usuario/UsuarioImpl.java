@@ -37,12 +37,11 @@ public class UsuarioImpl implements  UsuarioDAO {
         ) {
             while (rs.next()) listaUsuarios.add(new Usuario(rs.getInt("id"), rs.getString("nombre")));
         }
-
         return listaUsuarios;
     }
 
     @Override
-    public Usuario getUsuarioById(int usuario) throws SQLException {
+    public Autor getUsuarioById(int usuario) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE id = ?";
         int id;
         String nombre;

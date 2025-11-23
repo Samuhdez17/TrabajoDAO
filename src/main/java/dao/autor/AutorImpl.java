@@ -2,13 +2,11 @@ package dao.autor;
 
 import dao.ConexionBD;
 import model.Autor;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AutorImpl implements AutorDAO {
-
     @Override
     public void addAutor(AutorDAO autor) {
         String sql = "INSERT INTO autor (nombre) VALUES (?)";

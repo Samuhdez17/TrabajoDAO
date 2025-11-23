@@ -8,6 +8,14 @@ public class Prestamo {
     private int idLibro;
     private int idUsuario;
 
+    public Prestamo(int id, String fechaInicio, String fechaFin, int usuarioId, int libroId) {
+        this.id = id;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.idLibro = libroId;
+        this.idUsuario = usuarioId;
+    }
+
     public int getId() {
         return id;
     }
