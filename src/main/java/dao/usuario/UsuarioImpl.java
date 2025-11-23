@@ -1,7 +1,6 @@
 package dao.usuario;
 
 import dao.ConexionBD;
-import model.Autor;
 import model.Usuario;
 
 import java.sql.Connection;
@@ -27,7 +26,8 @@ public class UsuarioImpl implements  UsuarioDAO {
 
     @Override
     public List<Usuario> getAll() throws SQLException {
-        String sql = "SELECT * FROM usuario";
+        String sql = "SELECT * FROM usuario " +
+                "ORDER BY nombre";
         List<Usuario> listaUsuarios = new ArrayList<>();
 
         try (
@@ -37,14 +37,13 @@ public class UsuarioImpl implements  UsuarioDAO {
         ) {
             while (rs.next()) listaUsuarios.add(new Usuario(rs.getInt("id"), rs.getString("nombre")));
         }
+
         return listaUsuarios;
     }
 
     @Override
-    public Autor getUsuarioById(int usuario) throws SQLException {
+    public Usuario getUsuarioById(int usuario) throws SQLException {
         String sql = "SELECT * FROM usuario WHERE id = ?";
-        int id;
-        String nombre;
 
         try (
                 Connection conn = ConexionBD.getConexion();
@@ -53,7 +52,7 @@ public class UsuarioImpl implements  UsuarioDAO {
         ) {
             ps.setInt(1, usuario);
             if (rs.next()) {
-                return new Autor(rs.getInt("id"), rs.getString("nombre"));
+                return new Usuario(rs.getInt("id"), rs.getString("nombre"));
             }
         }
 

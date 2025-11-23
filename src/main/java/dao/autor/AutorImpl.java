@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AutorImpl implements AutorDAO {
     @Override
-    public void addAutor(AutorDAO autor) {
+    public void addAutor(Autor autor) {
         String sql = "INSERT INTO autor (nombre) VALUES (?)";
         try (
                 Connection conn = ConexionBD.getConexion();
@@ -28,8 +28,9 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public List<Autor> getAllAutores() throws Exception {
-        String sql = "SELECT id, nombre FROM autor";
+    public List<Autor> getAllAutores() throws SQLException {
+        String sql = "SELECT id, nombre FROM autor " +
+                "ORDER BY nombre";
         List<Autor> lista = new ArrayList<>();
 
         try (
@@ -45,7 +46,7 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public Autor getAutorById(int id) throws Exception {
+    public Autor getAutorById(int id) throws SQLException {
         String sql = "SELECT id, nombre FROM autor WHERE id = ?";
         try (
                 Connection conn = ConexionBD.getConexion();
@@ -62,7 +63,24 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public void updateAutor(Autor autor) throws Exception {
+    public Autor getAutorByNombre(String nombre) throws SQLException {
+        String sql = "SELECT id, nombre FROM autor WHERE nombre = ?";
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setString(1, nombre);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Autor(rs.getInt("id"), rs.getString("nombre"));
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void updateAutor(Autor autor) throws SQLException {
         String sql = "UPDATE autor SET nombre = ? WHERE id = ?";
         try (
                 Connection conn = ConexionBD.getConexion();
@@ -76,7 +94,7 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public void deleteAutor(int id) throws Exception {
+    public void deleteAutor(int id) throws SQLException {
         String sql = "DELETE FROM autor WHERE id = ?";
         try (
                 Connection conn = ConexionBD.getConexion();

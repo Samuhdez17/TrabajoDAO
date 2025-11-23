@@ -9,6 +9,10 @@ public class Autor {
         this.nombre = nombre;
     }
 
+    public Autor(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

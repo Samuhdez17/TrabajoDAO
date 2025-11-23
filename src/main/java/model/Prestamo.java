@@ -16,6 +16,13 @@ public class Prestamo {
         this.idUsuario = usuarioId;
     }
 
+    public Prestamo(String fechaInicio, String fechaFin, int usuarioId, int libroId) {
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.idLibro = libroId;
+        this.idUsuario = usuarioId;
+    }
+
     public int getId() {
         return id;
     }
