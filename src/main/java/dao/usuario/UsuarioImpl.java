@@ -51,11 +51,13 @@ public class UsuarioImpl implements  UsuarioDAO {
                 ResultSet rs = ps.executeQuery();
         ) {
             ps.setInt(1, usuario);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Usuario(rs.getInt("id"), rs.getString("nombre"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return null;
     }
 

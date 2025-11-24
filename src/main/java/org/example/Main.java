@@ -11,7 +11,11 @@ import dao.prestamo.PrestamoImpl;
 import dao.usuario.UsuarioDAO;
 import dao.usuario.UsuarioImpl;
 import service.BibliotecaService;
-
+import model.Autor;
+import model.Libro;
+import model.Prestamo;
+import model.Usuario;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
