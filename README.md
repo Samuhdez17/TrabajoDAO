@@ -1,6 +1,1 @@
-Se hace un PDF con capturas del codigo entero. También JavaDoc
-
-La clase biblioteca va a contener los métodos que va a ejecutar el Main
-
-[💡] EJEMPLO PARA EDITAR EL README:
-![imagen ejemplos](imagen.png)
+Este trabajo está incompleto debido a errores de git, el trabajo realizado de mejor manera y finalizado esta en el repositorio de DAM2/Acceso a datos/TrabajoDAO
