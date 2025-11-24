@@ -28,7 +28,9 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public List<Autor> getAllAutores() {
+    public List<Autor> getAllAutores() throws SQLException {
+        String sql = "SELECT id, nombre FROM autor " +
+                "ORDER BY nombre";
         List<Autor> lista = new ArrayList<>();
         String sql = "SELECT id, nombre FROM autor";
         try (Connection con = ConexionBD.getConexion();
@@ -44,7 +46,7 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public Autor getAutorById(int id) {
+    public Autor getAutorById(int id) throws SQLException {
         String sql = "SELECT id, nombre FROM autor WHERE id = ?";
         try (Connection con = ConexionBD.getConexion();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -55,6 +57,23 @@ public class AutorImpl implements AutorDAO {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public Autor getAutorByNombre(String nombre) throws SQLException {
+        String sql = "SELECT id, nombre FROM autor WHERE nombre = ?";
+        try (
+                Connection conn = ConexionBD.getConexion();
+                PreparedStatement ps = conn.prepareStatement(sql)
+        ) {
+            ps.setString(1, nombre);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Autor(rs.getInt("id"), rs.getString("nombre"));
+                }
+            }
         }
         return null;
     }

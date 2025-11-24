@@ -27,6 +27,7 @@ public class Main {
             4.  Acceder al menu usuario
             0.  Salir
             """;
+
     private static final String MENU_AUTOR = """
             ========= MENU AUTOR =========
             1. Registrar autor
@@ -35,6 +36,7 @@ public class Main {
             4. Borrar autor
             0. Salir al menu principal
             """;
+
     private static final String MENU_LIBRO = """
             ========= MENU LIBRO =========
             1. Registrar libro
@@ -44,6 +46,7 @@ public class Main {
             5. Borrar libro
             0. Salir al menu principal
             """;
+
     private static final String MENU_PRESTAMO = """
             ========= MENU PRÉSTAMO =========
             1. Registrar préstamo
@@ -52,6 +55,7 @@ public class Main {
             4. Borrar préstamo
             0. Salir al menu principal
             """;
+
     private static final String MENU_USUARIO = """
             ========= MENU USUARIO =========
             1. Registrar usuario
@@ -60,6 +64,7 @@ public class Main {
             4. Borrar usuario
             0. Salir al menu principal
             """;
+
     private static final Scanner ENTRADA = new Scanner(System.in);
     public static void main(String[] args) {
         AutorDAO autorDAO = new AutorImpl();
@@ -72,204 +77,49 @@ public class Main {
         while (opcion != 0) {
             System.out.println(MENU_PRINCIPAL);
             opcion = ENTRADA.nextInt();
+
             switch (opcion) {
                 case 1 -> {
                     opcion = -1;
                     while (opcion != 0) {
                         System.out.println(MENU_AUTOR);
                         opcion = ENTRADA.nextInt();
-                        switch (opcion) {
-                            case 1 -> {
-                                ENTRADA.nextLine();
-                                System.out.print("Nombre del autor: ");
-                                String nombre = ENTRADA.nextLine();
-                                servicio.registrarAutor(nombre);
-                                opcion = -1;
-                            }
-                            case 2 -> {
-                                List<Autor> autores = servicio.listarAutores();
-                                System.out.println("Autores:");
-                                for (Autor a : autores) {
-                                    System.out.println("id=" + a.getId() + " | nombre=" + a.getNombre());
-                                }
-                                opcion = -1;
-                            }
-                            case 3 -> {
-                                System.out.print("ID del autor a actualizar: ");
-                                int idAct = ENTRADA.nextInt();
-                                ENTRADA.nextLine();
-                                System.out.print("Nuevo nombre: ");
-                                String nuevoNombre = ENTRADA.nextLine();
-                                servicio.cambiarNombre(idAct, nuevoNombre);
-                                opcion = -1;
-                            }
-                            case 4 -> {
-                                System.out.print("ID del autor a borrar: ");
-                                int idDel = ENTRADA.nextInt();
-                                servicio.eliminarAutor(idDel);
-                                opcion = -1;
-                            }
-                            case 0 -> System.out.println("Volviendo al menú principal...");
-                            default -> {
-                                System.out.println("Opción no válida.");
-                                opcion = -1;
-                            }
+                        switch (opcion) { // TODO: EN CADA CASE INICIALIZA OPCION A -1. EN TODOS LOS SWITCH QUE HAY DEBAJO IGUAL!!
                         }
                     }
                 }
+
                 case 2 -> {
                     opcion = -1;
                     while (opcion != 0) {
                         System.out.println(MENU_LIBRO);
                         opcion = ENTRADA.nextInt();
                         switch (opcion) {
-                            case 1 -> {
-                                ENTRADA.nextLine();
-                                System.out.print("Nombre del autor: ");
-                                String autorNombre = ENTRADA.nextLine();
-                                System.out.print("Título del libro: ");
-                                String titulo = ENTRADA.nextLine();
-                                System.out.print("ISBN: ");
-                                String isbn = ENTRADA.nextLine();
-                                servicio.registrarLibro(autorNombre, titulo, isbn);
-                                opcion = -1;
-                            }
-                            case 2 -> {
-                                List<Libro> libros = servicio.listarLibros();
-                                System.out.println("Libros:");
-                                for (Libro l : libros) {
-                                    System.out.println("id=" + l.getId() + " | titulo=" + l.getTitulo() + " | isbn=" + l.getIsbn());
-                                }
-                                opcion = -1;
-                            }
-                            case 3 -> {
-                                System.out.print("ID del autor: ");
-                                int idAutor = ENTRADA.nextInt();
-                                List<Libro> librosAutor = servicio.listarLibrosPorAutor(idAutor);
-                                System.out.println("Libros del autor:");
-                                for (Libro l : librosAutor) {
-                                    System.out.println("id=" + l.getId() + " | titulo=" + l.getTitulo() + " | isbn=" + l.getIsbn());
-                                }
-                                opcion = -1;
-                            }
-                            case 4 -> {
-                                System.out.print("ID del libro a actualizar: ");
-                                int idLibro = ENTRADA.nextInt();
-                                ENTRADA.nextLine();
-                                System.out.print("Nuevo título: ");
-                                String nuevoTitulo = ENTRADA.nextLine();
-                                servicio.cambiarTitulo(idLibro, nuevoTitulo);
-                                opcion = -1;
-                            }
-                            case 5 -> {
-                                System.out.print("ID del libro a borrar: ");
-                                int idLibroDel = ENTRADA.nextInt();
-                                servicio.eliminarLibro(idLibroDel);
-                                opcion = -1;
-                            }
-                            case 0 -> System.out.println("Volviendo al menú principal...");
-                            default -> {
-                                System.out.println("Opción no válida.");
-                                opcion = -1;
-                            }
                         }
                     }
                 }
+
                 case 3 -> {
                     opcion = -1;
                     while (opcion != 0) {
                         System.out.println(MENU_PRESTAMO);
                         opcion = ENTRADA.nextInt();
                         switch (opcion) {
-                            case 1 -> {
-                                ENTRADA.nextLine();
-                                System.out.print("Fecha inicio (YYYY-MM-DD): ");
-                                String fechaInicio = ENTRADA.nextLine();
-                                System.out.print("Fecha fin (YYYY-MM-DD): ");
-                                String fechaFin = ENTRADA.nextLine();
-                                System.out.print("ID del libro: ");
-                                int libroId = ENTRADA.nextInt();
-                                System.out.print("ID del usuario: ");
-                                int usuarioId = ENTRADA.nextInt();
-                                servicio.registrarPrestamo(fechaInicio, fechaFin, libroId, usuarioId);
-                                opcion = -1;
-                            }
-                            case 2 -> {
-                                List<Prestamo> prestamos = servicio.listarPrestamos();
-                                System.out.println("Préstamos:");
-                                for (Prestamo p : prestamos) {
-                                    System.out.println("id=" + p.getId() + " | inicio=" + p.getFechaInicio() + " | fin=" + p.getFechaFin() + " | libroId=" + p.getIdLibro() + " | usuarioId=" + p.getIdUsuario());
-                                }
-                                opcion = -1;
-                            }
-                            case 3 -> {
-                                List<Prestamo> retrasos = servicio.listarRetrasos();
-                                System.out.println("Préstamos atrasados:");
-                                for (Prestamo p : retrasos) {
-                                    System.out.println("id=" + p.getId() + " | inicio=" + p.getFechaInicio() + " | fin=" + p.getFechaFin() + " | libroId=" + p.getIdLibro() + " | usuarioId=" + p.getIdUsuario());
-                                }
-                                opcion = -1;
-                            }
-                            case 4 -> {
-                                System.out.print("ID del préstamo a borrar: ");
-                                int idPrestamo = ENTRADA.nextInt();
-                                servicio.eliminarPrestamo(idPrestamo);
-                                opcion = -1;
-                            }
-                            case 0 -> System.out.println("Volviendo al menú principal...");
-                            default -> {
-                                System.out.println("Opción no válida.");
-                                opcion = -1;
-                            }
                         }
                     }
                 }
+
                 case 4 -> {
                     opcion = -1;
                     while (opcion != 0) {
                         System.out.println(MENU_USUARIO);
                         opcion = ENTRADA.nextInt();
                         switch (opcion) {
-                            case 1 -> {
-                                ENTRADA.nextLine();
-                                System.out.print("Nombre del usuario: ");
-                                String nombreUsuario = ENTRADA.nextLine();
-                                servicio.agregarUsuario(nombreUsuario);
-                                opcion = -1;
-                            }
-                            case 2 -> {
-                                List<Usuario> usuarios = servicio.listarUsuarios();
-                                System.out.println("Usuarios:");
-                                for (Usuario u : usuarios) {
-                                    System.out.println("id=" + u.getId() + " | nombre=" + u.getNombre());
-                                }
-                                opcion = -1;
-                            }
-                            case 3 -> {
-                                System.out.print("ID del usuario a actualizar: ");
-                                int idUsuarioAct = ENTRADA.nextInt();
-                                ENTRADA.nextLine();
-                                System.out.print("Nuevo nombre: ");
-                                String nuevoNomUsuario = ENTRADA.nextLine();
-                                servicio.actualizarUsuario(idUsuarioAct, nuevoNomUsuario);
-                                opcion = -1;
-                            }
-                            case 4 -> {
-                                System.out.print("ID del usuario a borrar: ");
-                                int idUsuarioDel = ENTRADA.nextInt();
-                                servicio.eliminarUsuario(idUsuarioDel);
-                                opcion = -1;
-                            }
-                            case 0 -> System.out.println("Volviendo al menú principal...");
-                            default -> {
-                                System.out.println("Opción no válida.");
-                                opcion = -1;
-                            }
                         }
                     }
                 }
-                case 0 -> System.out.println("Saliendo...");
-                default -> System.out.println("Opción no válida en menú principal.");
+
+                case 0 -> System.out.println("Saliendo de la base de datos...");
             }
         }
     }
