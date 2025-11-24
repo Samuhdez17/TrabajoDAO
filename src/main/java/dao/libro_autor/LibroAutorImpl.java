@@ -26,25 +26,20 @@ public class LibroAutorImpl implements LibroAutorDAO {
         }
     }
 
-    @Override
-    public List<Libro> getLibrosByAutor(int id) throws SQLException {
-        String sql = "SELECT id, titulo, isb FROM libro l " +
-                "JOIN libroAutor la ON l.id = la.idLibro " +
-                "JOIN autor a ON la.idAutor = a.id " +
-                "WHERE idAutor = ?";
-        List<Libro> listaLibros = new ArrayList<>();
-
-        try (
-                Connection conn = ConexionBD.getConexion();
-                PreparedStatement ps = conn.prepareStatement(sql)
-        ) {
-            ps.setInt(1, id);
+    public List<Libro> getLibrosByAutor(int idAutor) {
+        List<Libro> libros = new ArrayList<>();
+        String sql = "SELECT l.id, l.titulo, l.isbn FROM libro l JOIN libro_autor la ON l.id = la.id_libro WHERE la.id_autor = ?";
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, idAutor);
             ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) listaLibros.add(new Libro(rs.getInt("id"), rs.getString("titulo"), rs.getString("isbn")));
+            while (rs.next()) {
+                libros.add(new Libro(rs.getInt("id"), rs.getString("titulo"), rs.getString("isbn")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
-        return listaLibros;
+        return libros;
     }
 
     @Override

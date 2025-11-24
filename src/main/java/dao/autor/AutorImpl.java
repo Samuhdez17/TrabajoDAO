@@ -28,36 +28,33 @@ public class AutorImpl implements AutorDAO {
     }
 
     @Override
-    public List<Autor> getAllAutores() throws SQLException {
-        String sql = "SELECT id, nombre FROM autor " +
-                "ORDER BY nombre";
+    public List<Autor> getAllAutores() {
         List<Autor> lista = new ArrayList<>();
-
-        try (
-                Connection conn = ConexionBD.getConexion();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()
-        ) {
+        String sql = "SELECT id, nombre FROM autor";
+        try (Connection con = ConexionBD.getConexion();
+             Statement st = con.createStatement();
+             ResultSet rs = st.executeQuery(sql)) {
             while (rs.next()) {
-                lista.add(new Autor(rs.getInt("id"), rs.getString("titulo")));
+                lista.add(new Autor(rs.getInt("id"), rs.getString("nombre")));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return lista;
     }
 
     @Override
-    public Autor getAutorById(int id) throws SQLException {
+    public Autor getAutorById(int id) {
         String sql = "SELECT id, nombre FROM autor WHERE id = ?";
-        try (
-                Connection conn = ConexionBD.getConexion();
-                PreparedStatement ps = conn.prepareStatement(sql)
-        ) {
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, id);
-            try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) {
-                    return new Autor(rs.getInt("id"), rs.getString("titulo"));
-                }
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Autor(rs.getInt("id"), rs.getString("nombre"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }

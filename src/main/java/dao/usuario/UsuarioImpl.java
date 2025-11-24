@@ -42,20 +42,18 @@ public class UsuarioImpl implements  UsuarioDAO {
     }
 
     @Override
-    public Usuario getUsuarioById(int usuario) throws SQLException {
-        String sql = "SELECT * FROM usuario WHERE id = ?";
-
-        try (
-                Connection conn = ConexionBD.getConexion();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery();
-        ) {
+    public Usuario getUsuarioById(int usuario) {
+        String sql = "SELECT id, nombre FROM usuario WHERE id = ?";
+        try (Connection con = ConexionBD.getConexion();
+             PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setInt(1, usuario);
+            ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return new Usuario(rs.getInt("id"), rs.getString("nombre"));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return null;
     }
 
